@@ -22,7 +22,9 @@ def main():
                 return
 
         pygame.Surface.fill(screen, (0, 0, 0))
+        ply.update(dt)
         ply.draw(screen)
+        
         
         pygame.display.flip()
 
