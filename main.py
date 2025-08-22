@@ -14,8 +14,11 @@ def main():
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
+    score_font = pygame.font.Font(None, 48)
+    elapsed_font = pygame.font.Font(None, 48)
     dt = 0
     score = 0
+    session_timer = 0
 
     updateables = pygame.sprite.Group()
     drawables = pygame.sprite.Group()
@@ -53,12 +56,19 @@ def main():
                     blt.kill()
                     score += 1
         
+        score_surface = score_font.render(str(score), 0, (255, 255, 255))
+        pygame.Surface.blit(screen, score_surface, (10, 10))
+
+        elapsed_surface = elapsed_font.render(str(round(session_timer, 1)), 0, (255, 255, 255))
+        timer_width = elapsed_font.size(str(round(session_timer, 1)))
+        pygame.Surface.blit(screen, elapsed_surface, (SCREEN_WIDTH - timer_width[0] - 10, 10))
         
         pygame.display.flip()
 
         #this should happen after everything
         clock.tick(60)
         dt = int(clock.get_time()) / 1000
+        session_timer += dt
 
 
 if __name__ == "__main__":
